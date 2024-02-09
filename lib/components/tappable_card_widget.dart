@@ -11,13 +11,21 @@ class TappableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Card(
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.displayMedium,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 20,
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Card(
+          child: Text(
+            label,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
+          ),
         ),
       ),
     );

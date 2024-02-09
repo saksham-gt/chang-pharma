@@ -7,3 +7,7 @@ class CPTheme {
   static const bgColor = Color(0xFF568259);
   static const bgColor2 = Color(0xFF464E47);
 }
+
+class CPFont {
+  static const fontFamily = "Rubik";
+}

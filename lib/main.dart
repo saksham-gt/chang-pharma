@@ -1,12 +1,16 @@
 import 'package:changpharma/screens/reminder_screen.dart';
 import 'package:changpharma/utils/theme.dart';
+import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  setupDep();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -28,26 +32,27 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: const TextTheme(
           displayLarge: TextStyle(
-            fontSize: 72.0,
-            fontWeight: FontWeight.bold,
+            fontSize: 48.0,
+            fontWeight: FontWeight.w500,
             color: CPTheme.textColor,
-            // fontFamily: CPTheme.fontFamily,
+            fontFamily: CPFont.fontFamily,
           ),
           displayMedium: TextStyle(
-            fontSize: 36.0,
-            fontWeight: FontWeight.w400,
+            fontSize: 24.0,
+            fontWeight: FontWeight.normal,
             color: CPTheme.textColor,
+            fontFamily: CPFont.fontFamily,
           ),
           displaySmall: TextStyle(
             fontSize: 14.0,
             color: CPTheme.textColor,
-            // fontFamily: CPTheme.fontFamily,
+            fontFamily: CPFont.fontFamily,
           ),
         ),
       ),
       routes: {
         '/': (context) => AuthScreen(),
-        '/auth': (context) => AuthScreen(),
+        '/home': (context) => const HomeScreen(),
         '/reminder': (context) => const ReminderScreen(),
       },
     );
