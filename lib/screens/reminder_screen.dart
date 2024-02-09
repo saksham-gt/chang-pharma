@@ -1,3 +1,4 @@
+import 'package:changpharma/components/tappable_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class ReminderScreen extends StatelessWidget {
@@ -5,6 +6,9 @@ class ReminderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return TappableCard(
+      label: "Set Reminder",
+      onTap: () {},
+    );
   }
 }
