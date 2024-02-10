@@ -157,19 +157,25 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                final saveMedicine = medicine.copyWith(
-                  drug: _drugNameController.text,
-                  duration: _durationController.text,
-                  frequency: _frequencyController.text,
-                  dosage: _dosageController.text,
-                  form: _formController.text,
-                );
-                print(saveMedicine);
-              },
-              child: const Text('Confirm and save'),
+            const SizedBox(height: 30),
+            SizedBox(
+              height: 44,
+              child: ElevatedButton(
+                onPressed: () {
+                  final saveMedicine = medicine.copyWith(
+                    drug: _drugNameController.text,
+                    duration: _durationController.text,
+                    frequency: _frequencyController.text,
+                    dosage: _dosageController.text,
+                    form: _formController.text,
+                  );
+                  print(saveMedicine);
+                },
+                child: const Text(
+                  'Confirm and save',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             )
           ],
         ),
