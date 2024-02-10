@@ -361,7 +361,7 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(width: 20),
                           Expanded(
                             child: Text(
-                              'Add medicines',
+                              'Added medicines',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,

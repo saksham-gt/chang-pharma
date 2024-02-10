@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:changpharma/models/medicine.dart';
@@ -14,43 +13,20 @@ class ScannedMedsScreen extends StatefulWidget {
 }
 
 class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
-  late final XFile capturedImage;
-  List<Medicine> scannedMedicines = [];
+  List<Medicine> addedMedicines = [];
   var isLoading = true;
 
-  Future<void> extractMedicines() async {
-    try {
-      final imageBytes = await capturedImage.readAsBytes();
-      final multipartFile = MultipartFile.fromBytes(imageBytes);
-      final scannedMedicinesResponse = await Dio(BaseOptions(
-        receiveTimeout: const Duration(seconds: 60),
-      )).post(
-        'https://a20fe694031d-2837090015980470887.ngrok-free.app',
-        data: multipartFile.finalize(),
-        options: Options(
-          headers: {
-            HttpHeaders.contentTypeHeader: 'application/octet-stream',
-            HttpHeaders.contentLengthHeader: imageBytes.lengthInBytes,
-          },
-        ),
-      );
-      scannedMedicines = scannedMedicinesResponse.data
-          .map<Medicine>((scannedMedicineResponse) =>
-              Medicine.fromMap(scannedMedicineResponse))
-          .toList();
-    } catch (e) {
-      print(e);
-    }
+  Future<void> getMedicines() async {
+    // TODO:
     setState(() {
       isLoading = false;
     });
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    capturedImage = ModalRoute.of(context)!.settings.arguments as XFile;
-    extractMedicines();
+  void initState() {
+    super.initState();
+    getMedicines();
   }
 
   @override
@@ -77,7 +53,7 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                     ),
                   )
                 : Container(),
-            ...scannedMedicines
+            ...addedMedicines
                 .map(
                   (scannedMedicine) => Container(
                     padding: const EdgeInsets.all(24),
@@ -190,38 +166,6 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                           ],
                         ),
                         const SizedBox(height: 10),
-                        Center(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black),
-                            onPressed: () async {
-                              final isMedicineSaved = await Navigator.pushNamed(
-                                  context, '/formForMed',
-                                  arguments: scannedMedicine);
-                              if (isMedicineSaved == true) {
-                                scannedMedicines.remove(scannedMedicine);
-                                setState(() {});
-                              }
-                            },
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Edit',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),

@@ -7,7 +7,7 @@ class Medicine {
   final String? form;
   final String? dosage;
   final String? frequency;
-  final String? duration;
+  final int? duration;
   final DateTime? time;
   final int? totalDats;
   Medicine({
@@ -26,7 +26,7 @@ class Medicine {
     String? drug,
     String? dosage,
     String? frequency,
-    String? duration,
+    int? duration,
     DateTime? time,
     int? totalDats,
     String? form,
@@ -57,12 +57,18 @@ class Medicine {
   }
 
   factory Medicine.fromMap(Map<String, dynamic> map) {
+    final regex = RegExp(r'\b\d+\b');
+    final match = regex.firstMatch(map['duration'] ?? '');
+    int? duration;
+    if (match != null) {
+      duration = int.parse(match.group(0)!);
+    }
     return Medicine(
       medicineId: map['medicineId'] as String?,
       drug: map['drug'] as String?,
       dosage: map['dosage'] as String?,
       frequency: map['frequency'] as String?,
-      duration: map['duration'] as String?,
+      duration: duration,
       time: map['time'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['time'] as int)
           : null,

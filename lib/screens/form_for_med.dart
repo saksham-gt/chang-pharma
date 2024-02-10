@@ -21,7 +21,7 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
     super.didChangeDependencies();
     medicine = ModalRoute.of(context)!.settings.arguments as Medicine;
     _drugNameController.text = medicine.drug ?? '';
-    _durationController.text = medicine.duration ?? '';
+    _durationController.text = medicine.duration?.toString() ?? '';
     _frequencyController.text = medicine.frequency ?? '';
     _dosageController.text = medicine.dosage ?? '';
     _formController.text = medicine.form ?? '';
@@ -76,6 +76,7 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
                 TextFormField(
                   controller: _durationController,
                   style: const TextStyle(color: Colors.white),
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     hintText: 'Duration',
                     hintStyle: TextStyle(
@@ -164,12 +165,13 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
                 onPressed: () {
                   final saveMedicine = medicine.copyWith(
                     drug: _drugNameController.text,
-                    duration: _durationController.text,
+                    duration: int.tryParse(_durationController.text),
                     frequency: _frequencyController.text,
                     dosage: _dosageController.text,
                     form: _formController.text,
                   );
                   print(saveMedicine);
+                  Navigator.pop(context, true);
                 },
                 child: const Text(
                   'Confirm and save',
