@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:changpharma/components/tappable_card_widget.dart';
@@ -31,7 +32,7 @@ class PrescriptionPicker extends StatelessWidget {
             },
           ),
         );
-        print(scannedMedicinesResponse);
+        log(scannedMedicinesResponse.toString());
       },
       label: "Select prescription doc",
     );

@@ -8,7 +8,7 @@ class FormForMedScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

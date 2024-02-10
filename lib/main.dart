@@ -1,6 +1,5 @@
 import 'package:changpharma/screens/form_for_med.dart';
 import 'package:changpharma/screens/otp_verify_screen.dart';
-import 'package:changpharma/screens/reminder_screen.dart';
 import 'package:changpharma/screens/scanned_meds.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';

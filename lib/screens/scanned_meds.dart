@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:changpharma/models/medicine.dart';
@@ -39,7 +39,7 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
           .toList();
       setState(() {});
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
@@ -183,10 +183,8 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.black),
                             onPressed: () => Navigator.pushNamed(
-                              context,
-                              '/formForMed',
-                              arguments: scannedMedicine
-                            ),
+                                context, '/formForMed',
+                                arguments: scannedMedicine),
                             child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
