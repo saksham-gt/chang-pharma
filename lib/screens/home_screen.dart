@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   final capturedImage =
                                       await ImagePicker().pickImage(
                                     source: ImageSource.camera,
-                                    imageQuality: 3,
+                                    imageQuality: 5,
                                   );
                                   if (capturedImage == null) return;
                                   // ignore: use_build_context_synchronously

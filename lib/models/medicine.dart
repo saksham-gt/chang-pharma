@@ -8,6 +8,7 @@ class Medicine {
   final String? dosage;
   final String? frequency;
   final int? duration;
+  final String? durationString;
   final String? strength;
   final DateTime? time;
   final int? totalDats;
@@ -18,6 +19,7 @@ class Medicine {
     this.time,
     this.frequency,
     this.duration,
+    this.durationString,
     this.totalDats,
     this.strength,
     this.form,
@@ -91,6 +93,7 @@ class Medicine {
       frequency: map['frequency'] as String?,
       strength: map['strength'] as String?,
       duration: duration,
+      durationString: map['duration'] as String?,
       time: map['time'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['time'] as int)
           : null,
