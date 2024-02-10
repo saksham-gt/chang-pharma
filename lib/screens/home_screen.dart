@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -237,10 +238,17 @@ class HomeScreen extends StatelessWidget {
                             const SizedBox(width: 20),
                             Expanded(
                               child: InkWell(
-                                onTap: () => Navigator.pushNamed(
-                                  context,
-                                  '/scannedMeds',
-                                ),
+                                onTap: () async {
+                                  final capturedImage =
+                                      await ImagePicker().pickImage(
+                                    source: ImageSource.camera,
+                                    imageQuality: 3,
+                                  );
+                                  if (capturedImage == null) return;
+                                  // ignore: use_build_context_synchronously
+                                  Navigator.pushNamed(context, '/scannedMeds',
+                                      arguments: capturedImage);
+                                },
                                 child: const Text(
                                   'Scan prescription',
                                   style: TextStyle(
