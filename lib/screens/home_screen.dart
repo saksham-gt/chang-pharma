@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:changpharma/screens/notifications_screen.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                         Icons.notifications_none_outlined,
                         color: SystemColors.mintCream,
                       ),
-                      onPressed: onNotificationsButtonClicked,
+                      onPressed: () => onNotificationsButtonClicked(context),
                     ),
                   ],
                 ),
@@ -307,7 +308,7 @@ class HomeScreen extends StatelessWidget {
                             child: Text(
                               'Manage reminders',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                                 fontFamily: CPFont.fontFamily,
@@ -351,7 +352,7 @@ class HomeScreen extends StatelessWidget {
                             child: Text(
                               'Add medicines',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                                 fontFamily: CPFont.fontFamily,
@@ -390,7 +391,7 @@ class HomeScreen extends StatelessWidget {
                           child: Text(
                             'Doctor appointments',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
                               fontFamily: CPFont.fontFamily,
@@ -410,7 +411,14 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void onNotificationsButtonClicked() {}
+  void onNotificationsButtonClicked(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (_, __, ___) => const NotificationsScreen(),
+      ),
+    );
+  }
 
   Future<void> _launchUrl(Uri uri) async {
     if (!await launchUrl(uri)) {
