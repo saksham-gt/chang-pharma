@@ -1,6 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:changpharma/components/doc_taker.dart';
-import 'package:changpharma/screens/reminder_screen.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -222,12 +220,12 @@ class HomeScreen extends StatelessWidget {
                         color: SystemColors.bannerSecondaryColor,
                         borderRadius: BorderRadius.circular(24.0),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CircleAvatar(
+                            const CircleAvatar(
                               maxRadius: 24,
                               minRadius: 24,
                               backgroundColor: Colors.white,
@@ -236,15 +234,21 @@ class HomeScreen extends StatelessWidget {
                                 color: Colors.black,
                               ),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             Expanded(
-                              child: Text(
-                                'Scan prescription',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
-                                  fontFamily: CPFont.fontFamily,
+                              child: InkWell(
+                                onTap: () => Navigator.pushNamed(
+                                  context,
+                                  '/scannedMeds',
+                                ),
+                                child: const Text(
+                                  'Scan prescription',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                    fontFamily: CPFont.fontFamily,
+                                  ),
                                 ),
                               ),
                             ),
@@ -301,40 +305,46 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
-                  height: 100.0,
-                  margin: const EdgeInsets.only(right: 8),
-                  decoration: BoxDecoration(
-                    color: SystemColors.secondaryBannerColor,
-                    borderRadius: BorderRadius.circular(24.0),
+                InkWell(
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    '/formForMed',
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CircleAvatar(
-                          maxRadius: 24,
-                          minRadius: 24,
-                          backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.medication_outlined,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(width: 20),
-                        Expanded(
-                          child: Text(
-                            'Add medicines',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                  child: Container(
+                    height: 100.0,
+                    margin: const EdgeInsets.only(right: 8),
+                    decoration: BoxDecoration(
+                      color: SystemColors.secondaryBannerColor,
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CircleAvatar(
+                            maxRadius: 24,
+                            minRadius: 24,
+                            backgroundColor: Colors.white,
+                            child: Icon(
+                              Icons.medication_outlined,
                               color: Colors.black,
-                              fontFamily: CPFont.fontFamily,
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 20),
+                          Expanded(
+                            child: Text(
+                              'Add medicines',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                                fontFamily: CPFont.fontFamily,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
