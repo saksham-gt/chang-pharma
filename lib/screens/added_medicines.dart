@@ -1,5 +1,6 @@
 import 'package:changpharma/models/medicine.dart';
-import 'package:dio/dio.dart';
+import 'package:changpharma/utils/colors.dart';
+import 'package:changpharma/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 class AddedMedsScreen extends StatefulWidget {
@@ -15,7 +16,37 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
 
   Future<void> getMedicines() async {
     // TODO:
-    
+    addedMedicines = [
+      Medicine(
+          drug: 'Paracetamol',
+          time: [
+            DateTime(2024, 2, 11, 5, 30),
+            DateTime(2024, 2, 11, 8, 30),
+            DateTime(2024, 2, 11, 10, 30),
+          ],
+          duration: 4,
+          dosage: '3ml',
+          strength: '500mg',
+          form: 'Tablet'),
+      Medicine(
+          drug: 'Dolo 650mg',
+          time: [
+            DateTime(2024, 2, 11, 5, 30),
+          ],
+          duration: 4,
+          dosage: '3ml',
+          strength: '500mg',
+          form: 'Liquid'),
+      Medicine(
+          drug: 'Cisapride',
+          time: [
+            DateTime(2024, 2, 11, 5, 30),
+          ],
+          duration: 4,
+          dosage: '3ml',
+          strength: '500mg',
+          form: 'Tablet'),
+    ];
     setState(() {
       isLoading = false;
     });
@@ -31,7 +62,8 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        backgroundColor: SystemColors.pharmacyGreen,
+        child: const Icon(Icons.add, color: Colors.white),
         onPressed: () => Navigator.pushNamed(
           context,
           '/formForMed',
@@ -47,6 +79,7 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
+                fontFamily: CPFont.fontFamily,
                 color: Colors.white,
               ),
             ),
@@ -75,6 +108,7 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
                           scannedMedicine.drug ?? '',
                           style: const TextStyle(
                             fontSize: 24,
+                            fontFamily: CPFont.fontFamily,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -91,13 +125,31 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Text(
-                                      'Frequency',
+                                      'Timings',
                                       style: TextStyle(
                                         fontSize: 20,
+                                        fontFamily: CPFont.fontFamily,
                                         // fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    Text(scannedMedicine.frequency ?? '-'),
+                                    Text(
+                                      (scannedMedicine.time ?? [])
+                                          .map(
+                                            (element) =>
+                                                MaterialLocalizations.of(
+                                                        context)
+                                                    .formatTimeOfDay(
+                                              TimeOfDay(
+                                                  hour: element.hour,
+                                                  minute: element.minute),
+                                            ),
+                                          )
+                                          .toList()
+                                          .join(', '),
+                                      style: const TextStyle(
+                                        fontFamily: CPFont.fontFamily,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -114,11 +166,17 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
                                       'Duration',
                                       style: TextStyle(
                                         fontSize: 20,
+                                        fontFamily: CPFont.fontFamily,
+
                                         // fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                     Text(
-                                        ('${scannedMedicine.duration ?? '-'} days')),
+                                      ('${scannedMedicine.duration ?? '-'} days'),
+                                      style: const TextStyle(
+                                        fontFamily: CPFont.fontFamily,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -141,10 +199,15 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
                                       'Dosage',
                                       style: TextStyle(
                                         fontSize: 20,
-                                        // fontWeight: FontWeight.w600,
+                                        fontFamily: CPFont.fontFamily,
                                       ),
                                     ),
-                                    Text(scannedMedicine.dosage ?? '-'),
+                                    Text(
+                                      scannedMedicine.dosage ?? '-',
+                                      style: const TextStyle(
+                                        fontFamily: CPFont.fontFamily,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -161,10 +224,16 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
                                       'Form     ',
                                       style: TextStyle(
                                         fontSize: 20,
+                                        fontFamily: CPFont.fontFamily,
                                         // fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    Text(scannedMedicine.form ?? '-'),
+                                    Text(
+                                      scannedMedicine.form ?? '-',
+                                      style: const TextStyle(
+                                        fontFamily: CPFont.fontFamily,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
