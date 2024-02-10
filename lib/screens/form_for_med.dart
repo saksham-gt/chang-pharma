@@ -17,6 +17,7 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
   final _dosageController = TextEditingController();
   final _formController = TextEditingController();
   final _strengthController = TextEditingController();
+  final time = <DateTime?>[];
 
   @override
   void didChangeDependencies() {
@@ -28,6 +29,7 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
     _dosageController.text = medicine.dosage ?? '';
     _formController.text = medicine.form ?? '';
     _strengthController.text = medicine.strength ?? '';
+    time.add(null);
   }
 
   @override
@@ -243,18 +245,122 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Time of taking medicines',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontFamily: CPFont.fontFamily,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  time.add(null);
+                                });
+                              },
+                              child: const Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        ...time
+                            .map(
+                              (element) => GestureDetector(
+                                onTap: () async {
+                                  final selectedtime = await showTimePicker(
+                                    context: context,
+                                    initialTime:
+                                        const TimeOfDay(hour: 0, minute: 0),
+                                  );
+                                  if (selectedtime != null) {
+                                    setState(() {
+                                      final today = DateTime.now();
+                                      final index = time.indexOf(element);
+                                      time[index] = (DateTime(
+                                        today.year,
+                                        today.month,
+                                        today.day,
+                                        selectedtime.hour,
+                                        selectedtime.minute,
+                                      ));
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  height: 62,
+                                  padding: const EdgeInsets.all(10),
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.grey.withOpacity(0.6)),
+                                    borderRadius: BorderRadius.circular(24),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      element != null
+                                          ? Text(
+                                              MaterialLocalizations.of(context)
+                                                  .formatTimeOfDay(
+                                                TimeOfDay(
+                                                    hour: element.hour,
+                                                    minute: element.minute),
+                                              ),
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontFamily: CPFont.fontFamily,
+                                              ),
+                                            )
+                                          : Expanded(
+                                              child: Text(
+                                                'Select time of medication',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontFamily: CPFont.fontFamily,
+                                                  color: Colors.white
+                                                      .withOpacity(0.5),
+                                                ),
+                                              ),
+                                            ),
+                                       Icon(
+                                        Icons.access_time,
+                                        color: Colors.white.withOpacity(0.5),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ],
+                    ),
                     const SizedBox(height: 30),
                     SizedBox(
                       height: 44,
                       width: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
                         onPressed: () {
+                          time.removeWhere((element) => element == null);
                           final saveMedicine = medicine.copyWith(
                             drug: _drugNameController.text,
                             duration: int.tryParse(_durationController.text),
                             frequency: _frequencyController.text,
                             dosage: _dosageController.text,
                             form: _formController.text,
+                            time: time.map((e) => e!).toList(),
                             strength: _strengthController.text,
                           );
                           print(saveMedicine);

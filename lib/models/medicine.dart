@@ -10,8 +10,8 @@ class Medicine {
   final int? duration;
   final String? durationString;
   final String? strength;
-  final DateTime? time;
-  final int? totalDats;
+  final List<DateTime>? time;
+
   Medicine({
     this.medicineId,
     this.drug,
@@ -20,7 +20,6 @@ class Medicine {
     this.frequency,
     this.duration,
     this.durationString,
-    this.totalDats,
     this.strength,
     this.form,
   });
@@ -31,7 +30,7 @@ class Medicine {
     String? dosage,
     String? frequency,
     int? duration,
-    DateTime? time,
+    List<DateTime>? time,
     String? strength,
     int? totalDats,
     String? form,
@@ -44,7 +43,6 @@ class Medicine {
       duration: duration ?? this.duration,
       time: time ?? this.time,
       strength: strength ?? this.strength,
-      totalDats: totalDats ?? this.totalDats,
       form: form ?? this.form,
     );
   }
@@ -56,9 +54,8 @@ class Medicine {
       'dosage': dosage,
       'frequency': frequency,
       'duration': duration,
-      'time': time?.millisecondsSinceEpoch,
+      'time': time?.map((e) => e.millisecondsSinceEpoch).toList(),
       'strength': strength,
-      'totalDats': totalDats,
       'form': form,
     };
   }
@@ -95,9 +92,10 @@ class Medicine {
       duration: duration,
       durationString: map['duration'] as String?,
       time: map['time'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['time'] as int)
+          ? map['time']
+              .map((time) => DateTime.fromMillisecondsSinceEpoch(time))
+              .toList()
           : null,
-      totalDats: map['totalDats'] as int?,
       form: map['form'] as String?,
     );
   }
@@ -109,7 +107,7 @@ class Medicine {
 
   @override
   String toString() {
-    return 'Medicine(medicineId: $medicineId, drug: $drug, dosage: $dosage, time: $time, frequency: $frequency, duration: $duration, totalDats: $totalDats, form: $form)';
+    return 'Medicine(medicineId: $medicineId, drug: $drug, dosage: $dosage, time: $time, frequency: $frequency, duration: $duration, form: $form)';
   }
 
   @override
@@ -123,8 +121,7 @@ class Medicine {
         other.frequency == frequency &&
         other.duration == duration &&
         other.form == form &&
-        other.strength == strength &&
-        other.totalDats == totalDats;
+        other.strength == strength;
   }
 
   @override
@@ -136,8 +133,7 @@ class Medicine {
         frequency.hashCode ^
         duration.hashCode ^
         form.hashCode ^
-        strength.hashCode ^
-        totalDats.hashCode;
+        strength.hashCode;
   }
 }
 
