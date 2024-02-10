@@ -1,5 +1,7 @@
 import 'package:changpharma/notifiers/notifier.dart';
 import 'package:changpharma/notifiers/states/get_otp_states.dart';
+import 'package:changpharma/utils/colors.dart';
+import 'package:changpharma/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,8 +42,9 @@ class OtpVerifyScreen extends ConsumerWidget {
         }
       },
     );
-    final String requestId = (ModalRoute.of(context)!.settings.arguments
-        as Map<String, String>)["requestId"] as String;
+    final String requestId = 'request-id';
+    // (ModalRoute.of(context)!.settings.arguments
+    //     as Map<String, String>)["requestId"] as String;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -56,53 +59,82 @@ class OtpVerifyScreen extends ConsumerWidget {
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Spacer(),
+            const Text(
+              'Verify OTP',
+              style: TextStyle(
+                fontSize: 40.0,
+                color: Colors.white,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.left,
+            ),
+            const SizedBox(height: 20),
+            const Divider(),
+            const SizedBox(height: 20),
+            const Text(
+              'Enter the OTP sent to your mobile number',
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
+                fontFamily: 'Inter',
+              ),
+              textAlign: TextAlign.left,
+            ),
+            const SizedBox(height: 16),
             OtpTextField(
               numberOfFields: 4,
-              borderColor: Color(0xFF512DA8),
+              fillColor: Colors.white,
+              borderColor: SystemColors.pharmacyGreen,
+              cursorColor: Colors.white,
+              enabledBorderColor: SystemColors.pharmacyGreen,
+              focusedBorderColor: SystemColors.vanilla,
+              disabledBorderColor: SystemColors.vanilla,
               showFieldAsBox: true,
               onCodeChanged: (String code) {},
               onSubmit: (String verificationCode) {
-                if (otpController.text.isEmpty ||
-                    otpController.text.trim().length != 4) {
-                  _getSnackBar(
-                    context,
-                    const Text("Please enter valid OTP"),
-                  );
-                } else {
-                  ref
-                      .read(getOtpNotifier.notifier)
-                      .verifyOtp(requestId, otpController.text.trim());
-                }
-              }, // end onSubmit
+                ref
+                    .read(getOtpNotifier.notifier)
+                    .verifyOtp(requestId, verificationCode);
+              },
+              textStyle: const TextStyle(
+                fontFamily: CPFont.fontFamily,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
             ),
-            // TextFormField(
-            //   controller: otpController,
-            //   decoration: const InputDecoration(hintText: "Enter OTP"),
-            //   keyboardType: TextInputType.number,
-            // ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     if (otpController.text.isEmpty ||
-            //         otpController.text.trim().length != 4) {
-            //       _getSnackBar(
-            //         context,
-            //         const Text("Please enter valid OTP"),
-            //       );
-            //     } else {
-            //       ref
-            //           .read(getOtpNotifier.notifier)
-            //           .verifyOtp(requestId, otpController.text.trim());
-            //     }
-            //   },
-            //   child: ref.watch(getOtpNotifier
-            //           .select((value) => value is OtpVerifyingState))
-            //       ? const CircularProgressIndicator()
-            //       : const Text("Verify"),
-            // )
+            ref.watch(getOtpNotifier
+                    .select((value) => value is OtpVerifyingState))
+                ? const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 24.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Verifying your OTP',
+                          style: TextStyle(
+                            fontFamily: CPFont.fontFamily,
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            const Spacer(),
+            const Spacer(),
           ],
         ),
       ),
