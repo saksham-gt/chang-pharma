@@ -15,8 +15,16 @@ class _ManageRemindersScreenState extends State<ManageRemindersScreen> {
   DateTime? _lunchTime;
   DateTime? _dinnerTime;
 
-  String get breakfastTime =>
-      DateFormat.jm().format(_breakfastTime ?? DateTime.now()).toString();
+  String get breakfastTime => DateFormat.jm()
+      .format(_breakfastTime ??
+          DateTime(
+            DateTime.now().year,
+            1,
+            1,
+            DateTime.now().hour,
+            DateTime.now().minute,
+          ))
+      .toString();
 
   String get lunchTime =>
       DateFormat.jm().format(_lunchTime ?? DateTime.now()).toString();
@@ -97,49 +105,67 @@ class _ManageRemindersScreenState extends State<ManageRemindersScreen> {
                     border: Border.all(color: SystemColors.mintCream),
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: IntrinsicHeight(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: IconButton(
-                            onPressed: () =>
-                                updateBreakfastTime(decrement: true),
-                            icon: const Icon(
-                              Icons.remove,
-                              size: 24,
-                              color: SystemColors.mintCream,
+                  child: _breakfastTime != null
+                      ? IntrinsicHeight(
+                          child: Row(
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: IconButton(
+                                    onPressed: () =>
+                                        updateBreakfastTime(decrement: true),
+                                    icon: const Icon(
+                                      Icons.remove,
+                                      size: 24,
+                                      color: SystemColors.mintCream,
+                                    ),
+                                  )),
+                              const VerticalDivider(
+                                color: SystemColors.mintCream,
+                              ),
+                              Text(
+                                breakfastTime,
+                                style: const TextStyle(
+                                  fontFamily: CPFont.fontFamily,
+                                  fontSize: 24.0,
+                                  color: SystemColors.mintCream,
+                                ),
+                              ),
+                              const VerticalDivider(
+                                color: SystemColors.mintCream,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: IconButton(
+                                  onPressed: () => updateBreakfastTime(),
+                                  icon: const Icon(
+                                    Icons.add,
+                                    size: 24,
+                                    color: SystemColors.mintCream,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : SizedBox(
+                          width: 100,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              maximumSize: const Size.fromHeight(44),
+                              minimumSize: const Size.fromHeight(44),
+                            ),
+                            onPressed: setBreakfastTimer,
+                            child: const Text(
+                              'Set',
+                              style: TextStyle(
+                                color: SystemColors.mintCream,
+                                fontFamily: CPFont.fontFamily,
+                                fontSize: 24.0,
+                              ),
                             ),
                           ),
                         ),
-                        const VerticalDivider(
-                          color: SystemColors.mintCream,
-                        ),
-                        Text(
-                          breakfastTime,
-                          style: const TextStyle(
-                            fontFamily: CPFont.fontFamily,
-                            fontSize: 24.0,
-                            color: SystemColors.mintCream,
-                          ),
-                        ),
-                        const VerticalDivider(
-                          color: SystemColors.mintCream,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: IconButton(
-                            onPressed: () => updateBreakfastTime(),
-                            icon: const Icon(
-                              Icons.add,
-                              size: 24,
-                              color: SystemColors.mintCream,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -161,48 +187,68 @@ class _ManageRemindersScreenState extends State<ManageRemindersScreen> {
                     border: Border.all(color: SystemColors.mintCream),
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: IntrinsicHeight(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: IconButton(
-                            onPressed: () => updateLunchTime(decrement: true),
-                            icon: const Icon(
-                              Icons.remove,
-                              size: 24,
-                              color: SystemColors.mintCream,
+                  child: _lunchTime != null
+                      ? IntrinsicHeight(
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: IconButton(
+                                  onPressed: () =>
+                                      updateLunchTime(decrement: true),
+                                  icon: const Icon(
+                                    Icons.remove,
+                                    size: 24,
+                                    color: SystemColors.mintCream,
+                                  ),
+                                ),
+                              ),
+                              const VerticalDivider(
+                                color: SystemColors.mintCream,
+                              ),
+                              Text(
+                                lunchTime,
+                                style: const TextStyle(
+                                  fontFamily: CPFont.fontFamily,
+                                  fontSize: 24.0,
+                                  color: SystemColors.mintCream,
+                                ),
+                              ),
+                              const VerticalDivider(
+                                color: SystemColors.mintCream,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: IconButton(
+                                  onPressed: () => updateLunchTime(),
+                                  icon: const Icon(
+                                    Icons.add,
+                                    size: 24,
+                                    color: SystemColors.mintCream,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : SizedBox(
+                          width: 100,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              maximumSize: const Size.fromHeight(44),
+                              minimumSize: const Size.fromHeight(44),
+                            ),
+                            onPressed: setLunchTimer,
+                            child: const Text(
+                              'Set',
+                              style: TextStyle(
+                                color: SystemColors.mintCream,
+                                fontFamily: CPFont.fontFamily,
+                                fontSize: 24.0,
+                              ),
                             ),
                           ),
                         ),
-                        const VerticalDivider(
-                          color: SystemColors.mintCream,
-                        ),
-                        Text(
-                          lunchTime,
-                          style: const TextStyle(
-                            fontFamily: CPFont.fontFamily,
-                            fontSize: 24.0,
-                            color: SystemColors.mintCream,
-                          ),
-                        ),
-                        const VerticalDivider(
-                          color: SystemColors.mintCream,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: IconButton(
-                            onPressed: () => updateLunchTime(),
-                            icon: const Icon(
-                              Icons.add,
-                              size: 24,
-                              color: SystemColors.mintCream,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -224,48 +270,68 @@ class _ManageRemindersScreenState extends State<ManageRemindersScreen> {
                     border: Border.all(color: SystemColors.mintCream),
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: IntrinsicHeight(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: IconButton(
-                            onPressed: () => updateDinnerTime(decrement: true),
-                            icon: const Icon(
-                              Icons.remove,
-                              size: 24,
-                              color: SystemColors.mintCream,
+                  child: _dinnerTime != null
+                      ? IntrinsicHeight(
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: IconButton(
+                                  onPressed: () =>
+                                      updateDinnerTime(decrement: true),
+                                  icon: const Icon(
+                                    Icons.remove,
+                                    size: 24,
+                                    color: SystemColors.mintCream,
+                                  ),
+                                ),
+                              ),
+                              const VerticalDivider(
+                                color: SystemColors.mintCream,
+                              ),
+                              Text(
+                                dinnerTime,
+                                style: const TextStyle(
+                                  fontFamily: CPFont.fontFamily,
+                                  fontSize: 24.0,
+                                  color: SystemColors.mintCream,
+                                ),
+                              ),
+                              const VerticalDivider(
+                                color: SystemColors.mintCream,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: IconButton(
+                                  onPressed: () => updateDinnerTime(),
+                                  icon: const Icon(
+                                    Icons.add,
+                                    size: 24,
+                                    color: SystemColors.mintCream,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : SizedBox(
+                          width: 100,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              maximumSize: const Size.fromHeight(44),
+                              minimumSize: const Size.fromHeight(44),
+                            ),
+                            onPressed: setDinnerTimer,
+                            child: const Text(
+                              'Set',
+                              style: TextStyle(
+                                color: SystemColors.mintCream,
+                                fontFamily: CPFont.fontFamily,
+                                fontSize: 24.0,
+                              ),
                             ),
                           ),
                         ),
-                        const VerticalDivider(
-                          color: SystemColors.mintCream,
-                        ),
-                        Text(
-                          dinnerTime,
-                          style: const TextStyle(
-                            fontFamily: CPFont.fontFamily,
-                            fontSize: 24.0,
-                            color: SystemColors.mintCream,
-                          ),
-                        ),
-                        const VerticalDivider(
-                          color: SystemColors.mintCream,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: IconButton(
-                            onPressed: () => updateDinnerTime(),
-                            icon: const Icon(
-                              Icons.add,
-                              size: 24,
-                              color: SystemColors.mintCream,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -289,6 +355,24 @@ class _ManageRemindersScreenState extends State<ManageRemindersScreen> {
         ),
       ),
     );
+  }
+
+  void setBreakfastTimer() {
+    setState(() {
+      _breakfastTime = DateTime(DateTime.now().year, 1, 1, DateTime.now().hour);
+    });
+  }
+
+  void setLunchTimer() {
+    setState(() {
+      _lunchTime = DateTime(DateTime.now().year, 1, 1, DateTime.now().hour);
+    });
+  }
+
+  void setDinnerTimer() {
+    setState(() {
+      _dinnerTime = DateTime(DateTime.now().year, 1, 1, DateTime.now().hour);
+    });
   }
 
   void updateBreakfastTime({bool decrement = false}) {

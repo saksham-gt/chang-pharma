@@ -394,9 +394,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-
-                // PrescriptionPicker(),
-                // ReminderScreen(),
               ],
             ),
           ),
