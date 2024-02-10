@@ -31,26 +31,28 @@ class LoginNotifier extends Notifier<OtpStates> {
       } else {
         state = OtpGetErrorState("Failed to get OTP");
       }
-      // Future.delayed(const Duration(seconds: 3)).then(
-      //   (value) {
-      //     _isOtpSent = true;
-      //     state = OtpGetSuccessState();
-      //   },
-      // );
     } catch (e) {
       state = OtpGetErrorState(e.toString());
     }
   }
 
-  void verifyOtp(String requestId, String otp) {
+  void verifyOtp(String phone, String requestId, String otp)  async {
     state = OtpVerifyingState();
     try {
-      // final response = await _apiService.verifyOtp();
-      // if (response.statusCode == 200) {
-      //   state = OtpVerifySuccessState();
-      // } else {
-      //   state = OtpVerifyErrorState("Failed to verify OTP");
-      // }
+      final response = await apiClient.verifyOtp(requestId, otp);
+      if (response.statusCode == 200) {
+        final res =await  apiClient.createUser(phone);
+        if(res.statusCode==201){
+          final user = response.data as Map<String, dynamic>;
+          selfUser.uid = user['userId'];
+          selfUser.mobile = user["mobile"];
+          selfUser.defaultMealTime = user["breakfast"];
+          
+        }
+        state = OtpVerifySuccessState();
+      } else {
+        state = OtpVerifyErrorState("Failed to verify OTP");
+      }
       Future.delayed(const Duration(seconds: 3)).then(
         (value) => state = OtpVerifySuccessState(),
       );

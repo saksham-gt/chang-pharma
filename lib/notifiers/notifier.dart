@@ -9,6 +9,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final getOtpNotifier =
     NotifierProvider<LoginNotifier, OtpStates>(() => LoginNotifier(),);
 
-final setReminderNotifier = NotifierProvider<SetReminderNotifier, OnSetReminderStates>(()=>SetReminderNotifier(),);
+final setReminderNotifier = NotifierProvider<ReminderChangeNotifier, OnReminderStates>(()=>ReminderChangeNotifier(),);
 
 final getUserNotifier = NotifierProvider<GetUserDataNotifier, GetUserStates>(()=>GetUserDataNotifier());
+
+
+final toggleReminderNotifier = NotifierProvider<ToggleReminderNotifier, OnToggleReminderStates>(()=>ToggleReminderNotifier());

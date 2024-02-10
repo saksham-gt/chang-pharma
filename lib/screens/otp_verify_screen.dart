@@ -42,15 +42,19 @@ class OtpVerifyScreen extends ConsumerWidget {
         }
       },
     );
-    final String requestId = 'request-id';
-    // (ModalRoute.of(context)!.settings.arguments
-    //     as Map<String, String>)["requestId"] as String;
+    final String requestId = 
+    (ModalRoute.of(context)!.settings.arguments
+        as Map<String, String>)["requestId"] as String;
+    final String phone  =  (ModalRoute.of(context)!.settings.arguments
+        as Map<String, String>)["phone"] as String;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,
@@ -101,7 +105,7 @@ class OtpVerifyScreen extends ConsumerWidget {
               onSubmit: (String verificationCode) {
                 ref
                     .read(getOtpNotifier.notifier)
-                    .verifyOtp(requestId, verificationCode);
+                    .verifyOtp(phone, requestId, verificationCode);
               },
               textStyle: const TextStyle(
                 fontFamily: CPFont.fontFamily,

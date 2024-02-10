@@ -15,16 +15,9 @@ class GetUserDataNotifier extends Notifier<GetUserStates> {
   void getUserByNumber(String phone) async {
     final ph = phone.trim();
     state = GetUserInProgress();
-    final data = await apiClient.getUser(ph) as Map<String, dynamic>;
-    final localUser = User(
-      uid: data["uid"] as String,
-      name: data["name"] as String,
-      age: data["age"] as int,
-      mobile: data["mobile"] as String,
-      defaultMealTime: DefaultMealTime.fromJson(
-        (json.encode(data["defaultMealTime"])),
-      ),
-    );
+    final data = (await apiClient.getUserByNumber(ph)).data;
+    final localUser = User(uid: data["uid"] as String, name: data["name"] as String, age: data["age"] as int, mobile: data["mobile"] as String, defaultMealTime: DefaultMealTime.fromJson((json.encode(data["defaultMealTime"])),),);
+    selfUser = localUser;
     state = GetUserSuccess(localUser);
   }
 }
