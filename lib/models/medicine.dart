@@ -62,11 +62,27 @@ class Medicine {
   }
 
   factory Medicine.fromMap(Map<String, dynamic> map) {
-    final regex = RegExp(r'\b\d+\b');
+    final regex =
+        RegExp(r'\b(\d+)\s+(days|weeks|Weeks|Days|month|Months|Month)\b');
     final match = regex.firstMatch(map['duration'] ?? '');
     int? duration;
     if (match != null) {
-      duration = int.parse(match.group(0)!);
+      int number = int.parse(match.group(1)!);
+      String unit = match.group(2)!;
+      // duration = int.parse(match.group(0)!);
+      if (unit == 'weeks' ||
+          unit == 'Weeks' ||
+          unit == 'Week' ||
+          unit == 'week') {
+        duration = number * 7; // Multiply by 7 for weeks
+      } else if (unit == 'month' ||
+          unit == 'Months' ||
+          unit == 'Month' ||
+          unit == 'months') {
+        duration = number * 30;
+      } else {
+        duration = number;
+      }
     }
     return Medicine(
       medicineId: map['medicineId'] as String?,

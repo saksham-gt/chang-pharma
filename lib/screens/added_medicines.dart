@@ -15,6 +15,7 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
 
   Future<void> getMedicines() async {
     // TODO:
+    
     setState(() {
       isLoading = false;
     });
@@ -39,7 +40,7 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
       ),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(24),
           children: [
             const Text(
               'Added Medicines',

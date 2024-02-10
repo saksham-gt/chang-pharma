@@ -1,7 +1,8 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:changpharma/models/medicine.dart';
+import 'package:changpharma/utils/colors.dart';
+import 'package:changpharma/utils/theme.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -60,13 +61,26 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
         child: ListView(
           padding: const EdgeInsets.all(12),
           children: [
-            const Text(
-              'Scanned Medicines',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
+            Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      color: Colors.white,
+                    )),
+                const Text(
+                  'Scanned Medicines',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontFamily: CPFont.fontFamily,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             isLoading
@@ -89,19 +103,78 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          scannedMedicine.drug ?? '',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              scannedMedicine.drug ?? '',
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontFamily: CPFont.fontFamily,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: SystemColors.bannerSecondaryColor,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      final isMedicineSaved =
+                                          await Navigator.pushNamed(
+                                              context, '/formForMed',
+                                              arguments: scannedMedicine);
+                                      if (isMedicineSaved == true) {
+                                        scannedMedicines
+                                            .remove(scannedMedicine);
+                                        setState(() {});
+                                      }
+                                    },
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.edit),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          'Edit',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: CPFont.fontFamily,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: SystemColors.bannerSecondaryColor,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      scannedMedicines.remove(scannedMedicine);
+                                      setState(() {});
+                                    },
+                                    child: const Icon(
+                                      Icons.delete_outlined,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 25),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
-                              // crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Icon(Icons.access_time),
                                 const SizedBox(width: 10),
@@ -112,16 +185,20 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                                       'Frequency',
                                       style: TextStyle(
                                         fontSize: 20,
-                                        // fontWeight: FontWeight.w600,
+                                        fontFamily: CPFont.fontFamily,
                                       ),
                                     ),
-                                    Text(scannedMedicine.frequency ?? '-'),
+                                    Text(
+                                      scannedMedicine.frequency ?? '-',
+                                      style: const TextStyle(
+                                        fontFamily: CPFont.fontFamily,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
                             Row(
-                              // crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Icon(Icons.hourglass_top_outlined),
                                 const SizedBox(width: 10),
@@ -132,22 +209,26 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                                       'Duration',
                                       style: TextStyle(
                                         fontSize: 20,
+                                        fontFamily: CPFont.fontFamily,
                                       ),
                                     ),
                                     Text(
-                                        ('${scannedMedicine.duration ?? '-'} days')),
+                                      ('${scannedMedicine.duration ?? '-'} days'),
+                                      style: const TextStyle(
+                                        fontFamily: CPFont.fontFamily,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
-                              // crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Icon(Icons.medication_liquid_sharp),
                                 const SizedBox(width: 10),
@@ -158,10 +239,15 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                                       'Dosage',
                                       style: TextStyle(
                                         fontSize: 20,
-                                        // fontWeight: FontWeight.w600,
+                                        fontFamily: CPFont.fontFamily,
                                       ),
                                     ),
-                                    Text(scannedMedicine.dosage ?? '-'),
+                                    Text(
+                                      scannedMedicine.dosage ?? '-',
+                                      style: const TextStyle(
+                                        fontFamily: CPFont.fontFamily,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -178,10 +264,15 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                                       'Form     ',
                                       style: TextStyle(
                                         fontSize: 20,
-                                        // fontWeight: FontWeight.w600,
+                                        fontFamily: CPFont.fontFamily,
                                       ),
                                     ),
-                                    Text(scannedMedicine.form ?? '-'),
+                                    Text(
+                                      scannedMedicine.form ?? '-',
+                                      style: const TextStyle(
+                                        fontFamily: CPFont.fontFamily,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -189,38 +280,6 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                           ],
                         ),
                         const SizedBox(height: 10),
-                        Center(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black),
-                            onPressed: () async {
-                              final isMedicineSaved = await Navigator.pushNamed(
-                                  context, '/formForMed',
-                                  arguments: scannedMedicine);
-                              if (isMedicineSaved == true) {
-                                scannedMedicines.remove(scannedMedicine);
-                                setState(() {});
-                              }
-                            },
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Edit',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
