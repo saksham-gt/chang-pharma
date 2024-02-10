@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:changpharma/models/medicine.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +98,16 @@ class HomeScreen extends StatelessWidget {
                             minimumSize: const Size.fromHeight(44),
                             backgroundColor: Colors.black,
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            final capturedImage = await ImagePicker().pickImage(
+                              source: ImageSource.camera,
+                              imageQuality: 3,
+                            );
+                            if (capturedImage == null) return;
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushNamed(context, '/scannedMeds',
+                                arguments: capturedImage);
+                          },
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -324,6 +334,7 @@ class HomeScreen extends StatelessWidget {
                   onTap: () => Navigator.pushNamed(
                     context,
                     '/formForMed',
+                    arguments: Medicine(),
                   ),
                   child: Container(
                     height: 100.0,
