@@ -24,6 +24,7 @@ class GetUserDataNotifier extends Notifier<GetUserStates> {
       defaultMealTime: DefaultMealTime.fromJson(
         (json.encode(data["defaultMealTime"])),
       ),
+      enableReminder: data['enableReminder'] as bool,
     );
     state = GetUserSuccess(localUser);
   }

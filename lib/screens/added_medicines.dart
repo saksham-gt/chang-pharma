@@ -21,7 +21,6 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
           drug: 'Paracetamol',
           time: [
             DateTime(2024, 2, 11, 5, 30),
-            DateTime(2024, 2, 11, 8, 30),
             DateTime(2024, 2, 11, 10, 30),
           ],
           duration: 4,
@@ -104,13 +103,34 @@ class _AddedMedsScreenState extends State<AddedMedsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          scannedMedicine.drug ?? '',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontFamily: CPFont.fontFamily,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              scannedMedicine.drug ?? '',
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontFamily: CPFont.fontFamily,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                color: SystemColors.bannerSecondaryColor,
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  addedMedicines.remove(scannedMedicine);
+                                  setState(() {});
+                                },
+                                child: const Icon(
+                                  Icons.delete_outlined,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 15),
                         Row(
