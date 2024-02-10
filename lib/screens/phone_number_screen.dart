@@ -28,7 +28,7 @@ class PhoneNumberLoginScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,

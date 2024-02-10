@@ -16,12 +16,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
-
- @override
+  @override
   void didChangeDependencies() async {
-    final String mobile = (ModalRoute.of(context)!.settings.arguments as Map<String, String>)['phone'] as String ;
+    final String mobile = (ModalRoute.of(context)!.settings.arguments
+        as Map<String, String>)['phone'] as String;
     // sharedPrefs.setString("phone", mobile);
     // await apiClient.getUserByNumber(mobile);
     super.didChangeDependencies();
@@ -29,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -120,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           onPressed: () async {
                             final capturedImage = await ImagePicker().pickImage(
                               source: ImageSource.camera,
-                              imageQuality: 3,
+                              imageQuality: 5,
                             );
                             if (capturedImage == null) return;
                             // ignore: use_build_context_synchronously
@@ -271,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   final capturedImage =
                                       await ImagePicker().pickImage(
                                     source: ImageSource.camera,
-                                    imageQuality: 3,
+                                    imageQuality: 5,
                                   );
                                   if (capturedImage == null) return;
                                   // ignore: use_build_context_synchronously

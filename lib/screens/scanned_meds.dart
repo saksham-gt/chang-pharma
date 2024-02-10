@@ -106,12 +106,14 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              scannedMedicine.drug ?? '',
-                              style: const TextStyle(
-                                fontSize: 24,
-                                fontFamily: CPFont.fontFamily,
-                                fontWeight: FontWeight.w600,
+                            Expanded(
+                              child: Text(
+                                scannedMedicine.drug ?? '',
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontFamily: CPFont.fontFamily,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                             Row(
@@ -213,7 +215,7 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                                       ),
                                     ),
                                     Text(
-                                      ('${scannedMedicine.duration ?? '-'} days'),
+                                      (scannedMedicine.durationString ?? '-'),
                                       style: const TextStyle(
                                         fontFamily: CPFont.fontFamily,
                                       ),
