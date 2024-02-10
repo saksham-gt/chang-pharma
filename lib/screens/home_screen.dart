@@ -39,16 +39,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      maxRadius: 24,
-                      minRadius: 24,
-                      backgroundColor: Colors.white,
-                      child: CircleAvatar(
-                        maxRadius: 22,
-                        minRadius: 22,
-                        backgroundColor: Colors.black,
-                        child: ClipOval(
-                          child: Image.asset("assets/images/yash_square.jpeg"),
+                    InkWell(
+                      onTap: () => Navigator.of(context).pushNamed('/profile'),
+                      child: const CircleAvatar(
+                        maxRadius: 24,
+                        minRadius: 24,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.account_circle_outlined,
+                          size: 48,
                         ),
                       ),
                     ),
@@ -62,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const SizedBox(height: 40),
-                const HomeScreenBanner(),
+                HomeScreenBanner(),
                 const SizedBox(height: 40),
                 const Text(
                   'Quick Actions',

@@ -8,6 +8,7 @@ import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'screens/profile_screen.dart';
 import 'screens/user_preferences_screen.dart';
 import 'screens/notifications_screen.dart';
 import 'screens/phone_number_screen.dart';
@@ -72,11 +73,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        '/': (context) => const LandingScreen(),
+        '/': (context) => const HomeScreen(),
         '/login': (context) => PhoneNumberLoginScreen(),
         '/signup': (context) => SignupInfoScreen(),
         '/otp': (context) => OtpVerifyScreen(),
         '/home': (context) => const HomeScreen(),
+        '/profile': (context) => const ProfileScreen(),
         '/manage-reminders': (context) => const UserPreferencesScreen(),
         '/scannedMeds': (context) => const ScannedMedsScreen(),
         '/formForMed': (context) => const FormForMedScreen(),
