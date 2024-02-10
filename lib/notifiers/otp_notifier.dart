@@ -22,8 +22,12 @@ class LoginNotifier extends Notifier<OtpStates> {
     try {
       final response = await apiClient.getOtp(phone);
       if (response.statusCode == 200) {
-        final requestId = (response.data as Map<String, dynamic>)["requestId"];  
-        state = OtpGetSuccessState(requestId);
+        final requestId = (response.data as Map<String, dynamic>)["requestId"];
+        final statusCode =
+            (response.data as Map<String, dynamic>)["status"] as String;
+        statusCode == "OK"
+            ? state = OtpGetSuccessState(requestId)
+            : state = OtpGetErrorState("Please wait 30 sec before trying");
       } else {
         state = OtpGetErrorState("Failed to get OTP");
       }
