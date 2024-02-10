@@ -1,4 +1,5 @@
 import 'package:changpharma/screens/reminder_screen.dart';
+import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
 import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/landing_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +23,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Chang Pharma',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        scaffoldBackgroundColor: const Color(0xFF08090A),
         cardTheme: CardTheme(
           elevation: 2,
           shadowColor: CPTheme.bgColor,
@@ -49,9 +51,18 @@ class MyApp extends StatelessWidget {
             fontFamily: CPFont.fontFamily,
           ),
         ),
+        buttonTheme: const ButtonThemeData(
+          buttonColor: SystemColors.fernGreen,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: SystemColors.pharmacyGreen,
+          ),
+        ),
       ),
       routes: {
-        '/': (context) => AuthScreen(),
+        '/': (context) => const LandingScreen(),
+        '/auth': (context) => AuthScreen(),
         '/home': (context) => const HomeScreen(),
         '/reminder': (context) => const ReminderScreen(),
       },

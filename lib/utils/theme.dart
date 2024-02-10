@@ -9,5 +9,5 @@ class CPTheme {
 }
 
 class CPFont {
-  static const fontFamily = "Rubik";
+  static const fontFamily = "Inter";
 }
