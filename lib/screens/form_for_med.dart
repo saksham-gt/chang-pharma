@@ -15,6 +15,7 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
   final _frequencyController = TextEditingController();
   final _dosageController = TextEditingController();
   final _formController = TextEditingController();
+  final _strengthController = TextEditingController();
 
   @override
   void didChangeDependencies() {
@@ -25,6 +26,7 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
     _frequencyController.text = medicine.frequency ?? '';
     _dosageController.text = medicine.dosage ?? '';
     _formController.text = medicine.form ?? '';
+    _strengthController.text = medicine.strength ?? '';
   }
 
   @override
@@ -144,9 +146,28 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _formController,
-                  onChanged: (value) => {
-                    // medicine.form = value;
-                  },
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: 'Frequency',
+                    hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Strength',
+                  style: TextStyle(color: Colors.white),
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _strengthController,
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     hintText: 'Frequency',
@@ -169,9 +190,10 @@ class _FormForMedScreenState extends State<FormForMedScreen> {
                     frequency: _frequencyController.text,
                     dosage: _dosageController.text,
                     form: _formController.text,
+                    strength: _strengthController.text,
                   );
                   print(saveMedicine);
-                  Navigator.pop(context, true);
+                  // Navigator.pop(context, true);
                 },
                 child: const Text(
                   'Confirm and save',

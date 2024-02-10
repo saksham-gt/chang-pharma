@@ -309,14 +309,14 @@ class HomeScreen extends StatelessWidget {
                             minRadius: 24,
                             backgroundColor: Colors.white,
                             child: Icon(
-                              Icons.notifications_active_outlined,
+                              Icons.settings,
                               color: Colors.black,
                             ),
                           ),
                           SizedBox(width: 20),
                           Expanded(
                             child: Text(
-                              'Manage reminders',
+                              'User Preferences',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -334,7 +334,7 @@ class HomeScreen extends StatelessWidget {
                 InkWell(
                   onTap: () => Navigator.pushNamed(
                     context,
-                    '/formForMed',
+                    '/addedMeds',
                     arguments: Medicine(),
                   ),
                   child: Container(

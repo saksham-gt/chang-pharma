@@ -1,18 +1,15 @@
-import 'dart:io';
-
 import 'package:changpharma/models/medicine.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
-class ScannedMedsScreen extends StatefulWidget {
-  const ScannedMedsScreen({super.key});
+class AddedMedsScreen extends StatefulWidget {
+  const AddedMedsScreen({super.key});
 
   @override
-  State<ScannedMedsScreen> createState() => _ScannedMedsScreenState();
+  State<AddedMedsScreen> createState() => _AddedMedsScreenState();
 }
 
-class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
+class _AddedMedsScreenState extends State<AddedMedsScreen> {
   List<Medicine> addedMedicines = [];
   var isLoading = true;
 
@@ -32,12 +29,20 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => Navigator.pushNamed(
+          context,
+          '/formForMed',
+          arguments: Medicine(),
+        ),
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(12),
           children: [
             const Text(
-              'Scanned Medicines',
+              'Added Medicines',
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,

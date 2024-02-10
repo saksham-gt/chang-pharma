@@ -8,6 +8,7 @@ class Medicine {
   final String? dosage;
   final String? frequency;
   final int? duration;
+  final String? strength;
   final DateTime? time;
   final int? totalDats;
   Medicine({
@@ -18,6 +19,7 @@ class Medicine {
     this.frequency,
     this.duration,
     this.totalDats,
+    this.strength,
     this.form,
   });
 
@@ -28,6 +30,7 @@ class Medicine {
     String? frequency,
     int? duration,
     DateTime? time,
+    String? strength,
     int? totalDats,
     String? form,
   }) {
@@ -38,6 +41,7 @@ class Medicine {
       frequency: frequency ?? this.frequency,
       duration: duration ?? this.duration,
       time: time ?? this.time,
+      strength: strength ?? this.strength,
       totalDats: totalDats ?? this.totalDats,
       form: form ?? this.form,
     );
@@ -51,6 +55,7 @@ class Medicine {
       'frequency': frequency,
       'duration': duration,
       'time': time?.millisecondsSinceEpoch,
+      'strength': strength,
       'totalDats': totalDats,
       'form': form,
     };
@@ -68,6 +73,7 @@ class Medicine {
       drug: map['drug'] as String?,
       dosage: map['dosage'] as String?,
       frequency: map['frequency'] as String?,
+      strength: map['strength'] as String?,
       duration: duration,
       time: map['time'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['time'] as int)
@@ -98,6 +104,7 @@ class Medicine {
         other.frequency == frequency &&
         other.duration == duration &&
         other.form == form &&
+        other.strength == strength &&
         other.totalDats == totalDats;
   }
 
@@ -110,6 +117,7 @@ class Medicine {
         frequency.hashCode ^
         duration.hashCode ^
         form.hashCode ^
+        strength.hashCode ^
         totalDats.hashCode;
   }
 }

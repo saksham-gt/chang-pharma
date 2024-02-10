@@ -1,3 +1,4 @@
+import 'package:changpharma/screens/added_medicines.dart';
 import 'package:changpharma/screens/form_for_med.dart';
 import 'package:changpharma/screens/otp_verify_screen.dart';
 import 'package:changpharma/screens/scanned_meds.dart';
@@ -80,6 +81,7 @@ class MyApp extends StatelessWidget {
         '/scannedMeds': (context) => const ScannedMedsScreen(),
         '/formForMed': (context) => const FormForMedScreen(),
         '/notifications': (context) => const NotificationsScreen(),
+        '/addedMeds': (context) => const AddedMedsScreen(),
       },
     );
   }

@@ -132,7 +132,6 @@ class _ScannedMedsScreenState extends State<ScannedMedsScreen> {
                                       'Duration',
                                       style: TextStyle(
                                         fontSize: 20,
-                                        // fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                     Text(
