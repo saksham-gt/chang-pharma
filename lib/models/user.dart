@@ -5,16 +5,16 @@ import 'package:changpharma/models/default_meal_time.dart';
 
 class User {
   final String uid;
-  final String name;
-  final int age;
+  final String? name;
+  final int? age;
   final String mobile;
-  final DefaultMealTime defaultMealTime;
+  final DefaultMealTime? defaultMealTime;
   User({
     required this.uid,
-    required this.name,
-    required this.age,
+    this.name,
+    this.age,
     required this.mobile,
-    required this.defaultMealTime,
+    this.defaultMealTime,
   });
 
   User copyWith({
@@ -39,7 +39,7 @@ class User {
       'name': name,
       'age': age,
       'mobile': mobile,
-      'defaultMealTime': defaultMealTime.toMap(),
+      'defaultMealTime': defaultMealTime?.toMap(),
     };
   }
 

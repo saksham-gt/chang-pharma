@@ -3,15 +3,33 @@ import 'package:changpharma/models/medicine.dart';
 import 'package:changpharma/screens/notifications_screen.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
+import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+
+
+ @override
+  void didChangeDependencies() async {
+    final String mobile = (ModalRoute.of(context)!.settings.arguments as Map<String, String>)['phone'] as String ;
+    // sharedPrefs.setString("phone", mobile);
+    // await apiClient.getUserByNumber(mobile);
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: SafeArea(
         child: Padding(
