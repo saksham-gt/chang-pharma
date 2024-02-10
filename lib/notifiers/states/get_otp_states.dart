@@ -11,3 +11,13 @@ class OtpGetErrorState extends OtpStates {
 
   OtpGetErrorState(this.error);
 }
+
+class OtpVerifyingState extends OtpStates {}
+
+class OtpVerifyErrorState extends OtpStates {
+  final String error;
+
+  OtpVerifyErrorState(this.error);
+}
+
+class OtpVerifySuccessState extends OtpStates {}

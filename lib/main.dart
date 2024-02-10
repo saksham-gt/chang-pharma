@@ -1,4 +1,5 @@
 import 'package:changpharma/screens/form_for_med.dart';
+import 'package:changpharma/screens/otp_verify_screen.dart';
 import 'package:changpharma/screens/reminder_screen.dart';
 import 'package:changpharma/screens/scanned_meds.dart';
 import 'package:changpharma/utils/colors.dart';
@@ -7,9 +8,11 @@ import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'screens/auth_screen.dart';
+import 'screens/manage_reminders_screen.dart';
+import 'screens/phone_number_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/landing_screen.dart';
+import 'screens/signup_info_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,12 +64,19 @@ class MyApp extends StatelessWidget {
             backgroundColor: SystemColors.pharmacyGreen,
           ),
         ),
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+        ),
       ),
       routes: {
         '/': (context) => const LandingScreen(),
-        '/auth': (context) => AuthScreen(),
+        '/login': (context) => PhoneNumberLoginScreen(),
+        '/signup': (context) => SignupInfoScreen(),
+        '/otp': (context) => OtpVerifyScreen(),
         '/home': (context) => const HomeScreen(),
-        '/reminder': (context) => const ReminderScreen(),
+        '/manage-reminders': (context) => const ManageRemindersScreen(),
         '/scannedMeds': (context) => const ScannedMedsScreen(),
         '/formForMed': (context) => const FormForMedScreen(),
       },
