@@ -2,20 +2,21 @@ import 'package:changpharma/notifiers/notifier.dart';
 import 'package:changpharma/notifiers/states/set_reminder_states.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
+// import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class ManageRemindersScreen extends ConsumerStatefulWidget {
-  const ManageRemindersScreen({super.key});
+class UserPreferencesScreen extends ConsumerStatefulWidget {
+  const UserPreferencesScreen({super.key});
 
   @override
-  ConsumerState<ManageRemindersScreen> createState() =>
-      _ManageRemindersScreenState();
+  ConsumerState<UserPreferencesScreen> createState() =>
+      UserPreferencesScreenState();
 }
 
-class _ManageRemindersScreenState extends ConsumerState<ManageRemindersScreen> {
+class UserPreferencesScreenState extends ConsumerState<UserPreferencesScreen> {
   DateTime? _breakfastTime;
   DateTime? _lunchTime;
   DateTime? _dinnerTime;
@@ -346,7 +347,7 @@ class _ManageRemindersScreenState extends ConsumerState<ManageRemindersScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  'Set Reminders',
+                  'Enable Reminders',
                   style: TextStyle(
                     fontFamily: CPFont.fontFamily,
                     fontSize: 24.0,
@@ -458,7 +459,7 @@ class _ManageRemindersScreenState extends ConsumerState<ManageRemindersScreen> {
     if (!setReminderInProgress) {
       ref
           .read(setReminderNotifier.notifier)
-          .set([_breakfastTime, _lunchTime, _dinnerTime]);
+          .set([_breakfastTime, _lunchTime, _dinnerTime],setReminder);
     }
     if (setReminderInProgress) {
       return;

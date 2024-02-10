@@ -8,7 +8,7 @@ import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'screens/manage_reminders_screen.dart';
+import 'screens/user_preferences_screen.dart';
 import 'screens/notifications_screen.dart';
 import 'screens/phone_number_screen.dart';
 import 'screens/home_screen.dart';
@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => SignupInfoScreen(),
         '/otp': (context) => OtpVerifyScreen(),
         '/home': (context) => const HomeScreen(),
-        '/manage-reminders': (context) => const ManageRemindersScreen(),
+        '/manage-reminders': (context) => const UserPreferencesScreen(),
         '/scannedMeds': (context) => const ScannedMedsScreen(),
         '/formForMed': (context) => const FormForMedScreen(),
         '/notifications': (context) => const NotificationsScreen(),

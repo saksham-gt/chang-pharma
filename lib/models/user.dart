@@ -9,12 +9,14 @@ class User {
   final int? age;
   final String mobile;
   final DefaultMealTime? defaultMealTime;
+  final bool? enableReminder;
   User({
     required this.uid,
     this.name,
     this.age,
     required this.mobile,
     this.defaultMealTime,
+    this.enableReminder,
   });
 
   User copyWith({
@@ -23,6 +25,7 @@ class User {
     int? age,
     String? mobile,
     DefaultMealTime? defaultMealTime,
+    bool? enableReminder,
   }) {
     return User(
       uid: uid ?? this.uid,
@@ -30,6 +33,7 @@ class User {
       age: age ?? this.age,
       mobile: mobile ?? this.mobile,
       defaultMealTime: defaultMealTime ?? this.defaultMealTime,
+      enableReminder: enableReminder ?? this.enableReminder,
     );
   }
 
@@ -40,6 +44,7 @@ class User {
       'age': age,
       'mobile': mobile,
       'defaultMealTime': defaultMealTime?.toMap(),
+      'enableReminder': enableReminder,
     };
   }
 
@@ -49,6 +54,7 @@ class User {
       name: map['name'] as String,
       age: map['age'] as int,
       mobile: map['mobile'] as String,
+      enableReminder: map['enableReminder'] as bool,
       defaultMealTime: DefaultMealTime.fromMap(
           map['defaultMealTime'] as Map<String, dynamic>),
     );
@@ -61,7 +67,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(uid: $uid, name: $name, age: $age, mobile: $mobile, defaultMealTime: $defaultMealTime)';
+    return 'User(uid: $uid, name: $name, age: $age, mobile: $mobile, defaultMealTime: $defaultMealTime, enableReminder: $enableReminder)';
   }
 
   @override
@@ -72,6 +78,7 @@ class User {
         other.name == name &&
         other.age == age &&
         other.mobile == mobile &&
+        other.enableReminder == enableReminder &&
         other.defaultMealTime == defaultMealTime;
   }
 
@@ -81,6 +88,7 @@ class User {
         name.hashCode ^
         age.hashCode ^
         mobile.hashCode ^
+        enableReminder.hashCode ^
         defaultMealTime.hashCode;
   }
 }
