@@ -1,16 +1,19 @@
+import 'package:changpharma/notifiers/notifier.dart';
+import 'package:changpharma/notifiers/states/set_reminder_states.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class ManageRemindersScreen extends StatefulWidget {
+class ManageRemindersScreen extends ConsumerStatefulWidget {
   const ManageRemindersScreen({super.key});
 
   @override
-  State<ManageRemindersScreen> createState() => _ManageRemindersScreenState();
+  ConsumerState<ManageRemindersScreen> createState() => _ManageRemindersScreenState();
 }
 
-class _ManageRemindersScreenState extends State<ManageRemindersScreen> {
+class _ManageRemindersScreenState extends ConsumerState<ManageRemindersScreen> {
   DateTime? _breakfastTime;
   DateTime? _lunchTime;
   DateTime? _dinnerTime;
@@ -423,5 +426,17 @@ class _ManageRemindersScreenState extends State<ManageRemindersScreen> {
     );
   }
 
-  void updateReminderTimes() {}
+  void updateReminderTimes() {
+    final setReminderInProgress = ref.watch(setReminderNotifier.select((value) => value is OnSetReminderInProgress));
+        final setReminderSuccessful = ref.watch(setReminderNotifier.select((value) => value is OnSetReminderSuccess));
+        if(!setReminderInProgress){
+              ref.read(setReminderNotifier.notifier).set([_breakfastTime, _lunchTime, _dinnerTime]);
+        }
+    if(setReminderInProgress){
+      return;
+    } else if (setReminderSuccessful){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Setting reminder successful!"),),);
+      Navigator.of(context).pop();
+    }
+  }
 }

@@ -77,7 +77,6 @@ class MyApp extends StatelessWidget {
         '/otp': (context) => OtpVerifyScreen(),
         '/home': (context) => const HomeScreen(),
         '/manage-reminders': (context) => const ManageRemindersScreen(),
-        '/reminder': (context) => const ReminderScreen(),
         '/scannedMeds': (context) => const ScannedMedsScreen(),
         '/formForMed': (context) => const FormForMedScreen(),
       },
