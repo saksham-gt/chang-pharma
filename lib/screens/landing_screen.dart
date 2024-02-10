@@ -80,7 +80,7 @@ class LandingScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(60),
                 ),
-                onPressed: onSignup,
+                onPressed: () => onSignup(context),
                 child: const Text(
                   'Signup',
                   style: TextStyle(
@@ -98,8 +98,10 @@ class LandingScreen extends StatelessWidget {
   }
 
   void onLogin(BuildContext context) async {
-    Navigator.pushNamed(context, '/home');
+    Navigator.pushNamed(context, '/login', arguments: {'isLogin': true});
   }
 
-  void onSignup() async {}
+  void onSignup(BuildContext context) async {
+    Navigator.pushNamed(context, '/login', arguments: {'isLogin': false});
+  }
 }
