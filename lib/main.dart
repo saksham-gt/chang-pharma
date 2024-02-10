@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/': (context) => PhoneNumberLoginScreen(),
         '/login': (context) => PhoneNumberLoginScreen(),
         '/signup': (context) => SignupInfoScreen(),
         '/otp': (context) => OtpVerifyScreen(),

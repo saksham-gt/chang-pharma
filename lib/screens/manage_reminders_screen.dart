@@ -2,25 +2,24 @@ import 'package:changpharma/notifiers/notifier.dart';
 import 'package:changpharma/notifiers/states/set_reminder_states.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
-import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class UserPreferencesScreen extends ConsumerStatefulWidget {
-  const UserPreferencesScreen({super.key});
+class ManageRemindersScreen extends ConsumerStatefulWidget {
+  const ManageRemindersScreen({super.key});
 
   @override
-  ConsumerState<UserPreferencesScreen> createState() =>
-      UserPreferencesScreenState();
+  ConsumerState<ManageRemindersScreen> createState() =>
+      _ManageRemindersScreenState();
 }
 
-class UserPreferencesScreenState extends ConsumerState<UserPreferencesScreen> {
+class _ManageRemindersScreenState extends ConsumerState<ManageRemindersScreen> {
   DateTime? _breakfastTime;
   DateTime? _lunchTime;
   DateTime? _dinnerTime;
-  // var setReminder = true;
+  var setReminder = true;
 
   String get breakfastTime => DateFormat.jm()
       .format(_breakfastTime ??
@@ -39,12 +38,8 @@ class UserPreferencesScreenState extends ConsumerState<UserPreferencesScreen> {
   String get dinnerTime =>
       DateFormat.jm().format(_dinnerTime ?? DateTime.now()).toString();
 
-  parseTime(DateTime time) => DateFormat.jm().format(time).toString();
-
   @override
   Widget build(BuildContext context) {
-
-    ref.watch(setReminderNotifier);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -301,7 +296,7 @@ class UserPreferencesScreenState extends ConsumerState<UserPreferencesScreen> {
                                 color: SystemColors.mintCream,
                               ),
                               Text(
-                                selfUser.defaultMealTime!=null?parseTime(selfUser.defaultMealTime!.dinner):_dinnerTime,
+                                dinnerTime,
                                 style: const TextStyle(
                                   fontFamily: CPFont.fontFamily,
                                   fontSize: 24.0,
@@ -351,7 +346,7 @@ class UserPreferencesScreenState extends ConsumerState<UserPreferencesScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  'Enable Reminders',
+                  'Set Reminders',
                   style: TextStyle(
                     fontFamily: CPFont.fontFamily,
                     fontSize: 24.0,
@@ -359,13 +354,29 @@ class UserPreferencesScreenState extends ConsumerState<UserPreferencesScreen> {
                   ),
                 ),
                 CupertinoSwitch(
-                    value: ref.watch(toggleReminderNotifier.notifier.select((value) => value.enableReminder)),
+                    value: setReminder,
                     onChanged: (value) {
-                        toggleReminderState(selfUser.enableReminder);
+                      setState(() {
+                        setReminder = !setReminder;
+                      });
                     }),
               ],
             ),
             const Spacer(),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(60),
+              ),
+              onPressed: updateReminderTimes,
+              child: const Text(
+                'Set reminder',
+                style: TextStyle(
+                  color: SystemColors.mintCream,
+                  fontFamily: CPFont.fontFamily,
+                  fontSize: 24.0,
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
           ],
         ),
@@ -374,8 +385,9 @@ class UserPreferencesScreenState extends ConsumerState<UserPreferencesScreen> {
   }
 
   void setBreakfastTimer() {
+    setState(() {
       _breakfastTime = DateTime(DateTime.now().year, 1, 1, DateTime.now().hour);
-updateReminderTimes();
+    });
   }
 
   void setLunchTimer() {
@@ -391,6 +403,8 @@ updateReminderTimes();
   }
 
   void updateBreakfastTime({bool decrement = false}) {
+    setState(
+      () {
         if (decrement) {
           _breakfastTime = (_breakfastTime ??
                   DateTime(DateTime.now().year, 1, 1, DateTime.now().hour))
@@ -400,10 +414,13 @@ updateReminderTimes();
                   DateTime(DateTime.now().year, 1, 1, DateTime.now().hour))
               .add(const Duration(minutes: 30));
         }
-updateReminderTimes();
+      },
+    );
   }
 
   void updateLunchTime({bool decrement = false}) {
+    setState(
+      () {
         if (decrement) {
           _lunchTime = (_lunchTime ??
                   DateTime(DateTime.now().year, 1, 1, DateTime.now().hour))
@@ -413,26 +430,29 @@ updateReminderTimes();
                   DateTime(DateTime.now().year, 1, 1, DateTime.now().hour))
               .add(const Duration(minutes: 30));
         }
-    updateReminderTimes();
+      },
+    );
   }
 
   void updateDinnerTime({bool decrement = false}) {
+    setState(
+      () {
         if (decrement) {
           _dinnerTime = (_dinnerTime ??
                   DateTime(DateTime.now().year, 1, 1, DateTime.now().hour))
               .subtract(const Duration(minutes: 30));
-              ref.read(setReminderNotifier.notifier).set([_breakfastTime!, _lunchTime!, _dinnerTime!]);
         } else {
           _dinnerTime = (_dinnerTime ??
                   DateTime(DateTime.now().year, 1, 1, DateTime.now().hour))
               .add(const Duration(minutes: 30));
         }
-        updateReminderTimes();
+      },
+    );
   }
 
   void updateReminderTimes() {
     final setReminderInProgress = ref.watch(setReminderNotifier
-        .select((value) => value is OnReminderChangeInProgress));
+        .select((value) => value is OnReminderInitialState));
     final setReminderSuccessful = ref.watch(
         setReminderNotifier.select((value) => value is OnReminderChangeSuccess));
     if (!setReminderInProgress) {
@@ -450,9 +470,5 @@ updateReminderTimes();
       );
       Navigator.of(context).pop();
     }
-  }
-
-  void toggleReminderState(bool enableReminder){
-    ref.read(toggleReminderNotifier.notifier).toggleReminderState(enableReminder);
   }
 }

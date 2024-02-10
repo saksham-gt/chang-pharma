@@ -1,7 +1,19 @@
-abstract class OnSetReminderStates{}
+abstract class OnReminderStates{}
 
-class OnSetReminderInitialState extends OnSetReminderStates{}
+class OnReminderInitialState extends OnReminderStates{}
 
-class OnSetReminderInProgress extends OnSetReminderStates{}
+class OnReminderChangeInProgress extends OnReminderStates{}
 
-class OnSetReminderSuccess extends OnSetReminderStates{}
+class OnReminderChangeSuccess extends OnReminderStates{
+  List<DateTime> changedTimes;
+  OnReminderChangeSuccess(this.changedTimes);
+}
+
+
+abstract class OnToggleReminderStates{}
+class OnToggleReminderInitialState extends OnToggleReminderStates{}
+class OnToggleReminderInProgress extends OnToggleReminderStates{}
+class OnToggleReminderSuccess extends OnToggleReminderStates{
+  bool enableReminder;
+  OnToggleReminderSuccess(this.enableReminder);
+}

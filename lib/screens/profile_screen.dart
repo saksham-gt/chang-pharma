@@ -1,6 +1,7 @@
 import 'package:changpharma/extensions/string_extensions.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
+import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -234,5 +235,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void onLogout() {}
+  void onLogout() {
+  }
 }
