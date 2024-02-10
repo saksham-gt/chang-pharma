@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:changpharma/notifiers/notifier.dart';
 import 'package:changpharma/notifiers/states/get_otp_states.dart';
 import 'package:flutter/material.dart';
@@ -23,15 +25,14 @@ class OtpVerifyScreen extends ConsumerWidget {
       (previous, next) {
         if (next is OtpVerifySuccessState) {
           final args = ModalRoute.of(context)!.settings.arguments;
-          // print(
-          //     "isLogin bool: ${(args as Map<String, bool>)['isLogin'] as bool}");
-          // if (args != null) {
-          //   if ((args as Map<String, bool>)['isLogin'] as bool) {
-          Navigator.pushNamed(context, '/home');
-          //   } else {
-          //     Navigator.pushNamed(context, '/signup');
-          //   }
-          // }
+          log("isLogin bool: ${(args as Map<String, bool>)['isLogin'] as bool}");
+          if (args != null) {
+            if ((args as Map<String, bool>)['isLogin'] as bool) {
+              Navigator.pushNamed(context, '/home');
+            } else {
+              Navigator.pushNamed(context, '/signup');
+            }
+          }
         } else if (next is OtpVerifyErrorState) {
           _getSnackBar(
             context,

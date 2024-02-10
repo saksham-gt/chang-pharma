@@ -1,6 +1,5 @@
 import 'package:changpharma/screens/form_for_med.dart';
 import 'package:changpharma/screens/otp_verify_screen.dart';
-import 'package:changpharma/screens/reminder_screen.dart';
 import 'package:changpharma/screens/scanned_meds.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'screens/manage_reminders_screen.dart';
+import 'screens/notifications_screen.dart';
 import 'screens/phone_number_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/landing_screen.dart';
@@ -79,6 +79,7 @@ class MyApp extends StatelessWidget {
         '/manage-reminders': (context) => const ManageRemindersScreen(),
         '/scannedMeds': (context) => const ScannedMedsScreen(),
         '/formForMed': (context) => const FormForMedScreen(),
+        '/notifications': (context) => const NotificationsScreen(),
       },
     );
   }
