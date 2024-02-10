@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:changpharma/notifiers/notifier.dart';
 import 'package:changpharma/notifiers/states/get_otp_states.dart';
 import 'package:flutter/material.dart';
@@ -24,15 +22,15 @@ class OtpVerifyScreen extends ConsumerWidget {
       getOtpNotifier,
       (previous, next) {
         if (next is OtpVerifySuccessState) {
-          final args = ModalRoute.of(context)!.settings.arguments;
-          log("isLogin bool: ${(args as Map<String, bool>)['isLogin'] as bool}");
-          if (args != null) {
-            if ((args as Map<String, bool>)['isLogin'] as bool) {
-              Navigator.pushNamed(context, '/home');
-            } else {
-              Navigator.pushNamed(context, '/signup');
-            }
-          }
+          // print(
+          //     "isLogin bool: ${(args as Map<String, bool>)['isLogin'] as bool}");
+          // if (args != null) {
+          //   if ((args as Map<String, bool>)['isLogin'] as bool) {
+          Navigator.pushNamed(context, '/home');
+          //   } else {
+          //     Navigator.pushNamed(context, '/signup');
+          //   }
+          // }
         } else if (next is OtpVerifyErrorState) {
           _getSnackBar(
             context,
@@ -41,6 +39,7 @@ class OtpVerifyScreen extends ConsumerWidget {
         }
       },
     );
+    final String requestId = (ModalRoute.of(context)!.settings.arguments as Map<String, String>)["requestId"] as String;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -56,7 +55,7 @@ class OtpVerifyScreen extends ConsumerWidget {
             ElevatedButton(
               onPressed: () {
                 if (otpController.text.isEmpty ||
-                    otpController.text.trim().length != 6) {
+                    otpController.text.trim().length != 4) {
                   _getSnackBar(
                     context,
                     const Text("Please enter valid OTP"),
@@ -64,7 +63,7 @@ class OtpVerifyScreen extends ConsumerWidget {
                 } else {
                   ref
                       .read(getOtpNotifier.notifier)
-                      .verifyOtp(otpController.text.trim());
+                      .verifyOtp(requestId, otpController.text.trim());
                 }
               },
               child: ref.watch(getOtpNotifier

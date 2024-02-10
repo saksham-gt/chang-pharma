@@ -13,7 +13,7 @@ class PhoneNumberLoginScreen extends ConsumerWidget {
       getOtpNotifier,
       (previous, next) {
         if (next is OtpGetSuccessState) {
-          Navigator.pushNamed(context, '/otp');
+          Navigator.pushNamed(context, '/otp', arguments: {'requestId': next.requestId});
         }
       },
     );

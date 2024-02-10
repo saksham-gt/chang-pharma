@@ -1,4 +1,5 @@
 import 'package:changpharma/notifiers/states/get_otp_states.dart';
+import 'package:changpharma/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginNotifier extends Notifier<OtpStates> {
@@ -19,24 +20,25 @@ class LoginNotifier extends Notifier<OtpStates> {
   void getOtp(String phone) async {
     state = OtpGettingState();
     try {
-      // final response = await _apiService.getOtp();
-      // if (response.statusCode == 200) {
-      //   state = OtpGetSuccessState();
-      // } else {
-      //   state = OtpGetErrorState("Failed to get OTP");
-      // }
-      Future.delayed(const Duration(seconds: 3)).then(
-        (value) {
-          _isOtpSent = true;
-          state = OtpGetSuccessState();
-        },
-      );
+      final response = await apiClient.getOtp(phone);
+      if (response.statusCode == 200) {
+        final requestId = (response.data as Map<String, dynamic>)["requestId"];  
+        state = OtpGetSuccessState(requestId);
+      } else {
+        state = OtpGetErrorState("Failed to get OTP");
+      }
+      // Future.delayed(const Duration(seconds: 3)).then(
+      //   (value) {
+      //     _isOtpSent = true;
+      //     state = OtpGetSuccessState();
+      //   },
+      // );
     } catch (e) {
       state = OtpGetErrorState(e.toString());
     }
   }
 
-  void verifyOtp(String otp) {
+  void verifyOtp(String requestId, String otp) {
     state = OtpVerifyingState();
     try {
       // final response = await _apiService.verifyOtp();

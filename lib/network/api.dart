@@ -5,7 +5,15 @@ import '../secret.dart';
 
 class ApiClient {
   Future<Response> getOtp(String phoneNumber) async {
-    return await getIt.get<Dio>().get("$url/otp?number=$phoneNumber");
+    return await getIt.get<Dio>().post("$url/v1/otp/generate", data: {'mobileNumber': "91$phoneNumber"});
+  }
+
+  Future<Response> verifyOtp(String requestId, String otp) async{
+    return await getIt.get<Dio>().post('$url/v1/otp/verify', data: {'requestId': requestId, 'code': otp});
+  }
+
+  Future<Response> getUser() async {
+    return await getIt.get<Dio>().post('$url/v1/otp/verify');
   }
 
   Future<Response> post(String url, Map<String, dynamic> body) async {
