@@ -8,6 +8,7 @@ import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'screens/manage_reminders_screen.dart';
 import 'screens/phone_number_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/landing_screen.dart';
@@ -63,6 +64,11 @@ class MyApp extends StatelessWidget {
             backgroundColor: SystemColors.pharmacyGreen,
           ),
         ),
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+        ),
       ),
       routes: {
         '/': (context) => const LandingScreen(),
@@ -70,6 +76,7 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => SignupInfoScreen(),
         '/otp': (context) => OtpVerifyScreen(),
         '/home': (context) => const HomeScreen(),
+        '/manage-reminders': (context) => const ManageRemindersScreen(),
         '/reminder': (context) => const ReminderScreen(),
         '/scannedMeds': (context) => const ScannedMedsScreen(),
         '/formForMed': (context) => const FormForMedScreen(),

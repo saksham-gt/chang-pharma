@@ -12,4 +12,6 @@ class SystemColors {
   static const homePageBannerColor = Color(0xFFB29EFF);
   static const bannerSecondaryColor = Color(0xFFc5d7c5);
   static const secondaryBannerColor = Color(0xffEDDEA4);
+
+  static const vanilla = Color(0xFFEDDEA4);
 }

@@ -267,40 +267,47 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-                Container(
-                  height: 100.0,
-                  margin: const EdgeInsets.only(right: 8),
-                  decoration: BoxDecoration(
-                    color: SystemColors.secondaryBannerColor,
-                    borderRadius: BorderRadius.circular(24.0),
+                InkWell(
+                  borderRadius: BorderRadius.circular(24.0),
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    '/manage-reminders',
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CircleAvatar(
-                          maxRadius: 24,
-                          minRadius: 24,
-                          backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.notifications_active_outlined,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(width: 20),
-                        Expanded(
-                          child: Text(
-                            'Manage reminders',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                  child: Container(
+                    height: 100.0,
+                    margin: const EdgeInsets.only(right: 8),
+                    decoration: BoxDecoration(
+                      color: SystemColors.secondaryBannerColor,
+                      borderRadius: BorderRadius.circular(24.0),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CircleAvatar(
+                            maxRadius: 24,
+                            minRadius: 24,
+                            backgroundColor: Colors.white,
+                            child: Icon(
+                              Icons.notifications_active_outlined,
                               color: Colors.black,
-                              fontFamily: CPFont.fontFamily,
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 20),
+                          Expanded(
+                            child: Text(
+                              'Manage reminders',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                                fontFamily: CPFont.fontFamily,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

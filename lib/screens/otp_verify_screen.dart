@@ -23,15 +23,15 @@ class OtpVerifyScreen extends ConsumerWidget {
       (previous, next) {
         if (next is OtpVerifySuccessState) {
           final args = ModalRoute.of(context)!.settings.arguments;
-          print(
-              "isLogin bool: ${(args as Map<String, bool>)['isLogin'] as bool}");
-          if (args != null) {
-            if ((args as Map<String, bool>)['isLogin'] as bool) {
-              Navigator.pushNamed(context, '/home');
-            } else {
-              Navigator.pushNamed(context, '/signup');
-            }
-          }
+          // print(
+          //     "isLogin bool: ${(args as Map<String, bool>)['isLogin'] as bool}");
+          // if (args != null) {
+          //   if ((args as Map<String, bool>)['isLogin'] as bool) {
+          Navigator.pushNamed(context, '/home');
+          //   } else {
+          //     Navigator.pushNamed(context, '/signup');
+          //   }
+          // }
         } else if (next is OtpVerifyErrorState) {
           _getSnackBar(
             context,
