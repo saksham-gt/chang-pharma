@@ -2,6 +2,9 @@
 ## Overview
 ChangPharma is a robust solution designed to revolutionize your medication management, offering dose reminders, connecting you with nearby pharmacies, and now featuring the innovative ability to fetch medicines by scanning prescriptions using OCR (Optical Character Recognition) for text extraction and NLP (Natural Language Processing) for data classification. With a user-friendly interface, ChangPharma aims to elevate your healthcare experience.
 
+## Note
+- The app won't work if not hosting the backend on local device or another device. Use `ngrok >= 3.6.0` for hosting the local backend with a public url.
+
 ## Features
 1. Medication Management
 Medicine Repository: Easily manage and track all your medications in one place, including details such as dosage, frequency, and instructions.
