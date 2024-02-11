@@ -4,19 +4,19 @@ import 'dart:convert';
 import 'package:changpharma/models/default_meal_time.dart';
 
 class User {
-  final String uid;
-  final String? name;
-  final int? age;
-  final String mobile;
-  final DefaultMealTime? defaultMealTime;
-  final bool? enableReminder;
+  String uid;
+  String? name;
+  int? age;
+  String mobile;
+  DefaultMealTime? defaultMealTime;
+  bool enableReminder;
   User({
     required this.uid,
     this.name,
     this.age,
     required this.mobile,
     this.defaultMealTime,
-    this.enableReminder,
+    this.enableReminder = true,
   });
 
   User copyWith({
@@ -25,7 +25,7 @@ class User {
     int? age,
     String? mobile,
     DefaultMealTime? defaultMealTime,
-    bool? enableReminder,
+    bool enableReminder = true,
   }) {
     return User(
       uid: uid ?? this.uid,

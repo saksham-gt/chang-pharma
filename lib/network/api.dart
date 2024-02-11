@@ -15,8 +15,12 @@ class ApiClient {
         data: {'requestId': requestId, 'code': otp});
   }
 
-  Future<Response> getUser(String phone) async {
-    return await getIt.get<Dio>().post('$url/v1/otp/verify');
+  Future<Response> getUserByNumber(String phone) async {
+    return await getIt.get<Dio>().get('$url/v1/user', data: {'mobileNumber': '91$phone'});
+  }
+
+  Future<Response> createUser(String phone) async {
+    return await dio.post('$url/v1/user', data: {'mobileNumber': '91$phone'});
   }
 
   Future<Response> post(String url, Map<String, dynamic> body) async {
