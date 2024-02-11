@@ -9,7 +9,7 @@ final getIt = GetIt.instance;
 final dio = getIt.get<Dio>();
 final apiClient = getIt.get<ApiClient>();
 final sharedPrefs = getIt.get<SharedPreferences>();
-User selfUser = getIt.get<User>();
+User selfUser = User(uid: '', mobile: '');
 
 setupDep() async {
   getIt.registerLazySingleton(() => Dio());
@@ -18,5 +18,5 @@ setupDep() async {
     () => SharedPreferences.getInstance(),
   );
   await GetIt.instance.isReady<SharedPreferences>();
-  getIt.registerSingleton(() => User(uid: '', mobile: ''));
+  // getIt.registerSingleton(() => User(uid: '', mobile: ''));
 }

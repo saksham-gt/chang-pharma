@@ -1,4 +1,5 @@
 import 'package:changpharma/extensions/string_extensions.dart';
+import 'package:changpharma/models/user.dart';
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
 import 'package:changpharma/utils/utils.dart';
@@ -235,6 +236,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void onLogout() {
+  void onLogout() async  {
+    selfUser = User(uid: '', mobile: '');
+    sharedPrefs.remove('phone').then((value) => Navigator.popUntil(context, (route) => route.isFirst));
   }
 }

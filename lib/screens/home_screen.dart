@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../utils/utils.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -18,10 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() async {
-    final String mobile = (ModalRoute.of(context)!.settings.arguments
-        as Map<String, String>)['phone'] as String;
-    // sharedPrefs.setString("phone", mobile);
-    // await apiClient.getUserByNumber(mobile);
+    sharedPrefs.setString("phone", selfUser.mobile);
     super.didChangeDependencies();
   }
 

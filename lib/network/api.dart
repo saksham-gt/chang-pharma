@@ -16,11 +16,11 @@ class ApiClient {
   }
 
   Future<Response> getUserByNumber(String phone) async {
-    return await getIt.get<Dio>().get('$url/v1/user', data: {'mobileNumber': '91$phone'});
+    return await getIt.get<Dio>().get('$url/v1/user/mobileNumber/$phone');
   }
 
   Future<Response> createUser(String phone) async {
-    return await dio.post('$url/v1/user', data: {'mobileNumber': '91$phone'});
+    return await dio.post('$url/v1/user/', data: {'mobileNumber': '91$phone'});
   }
 
   Future<Response> post(String url, Map<String, dynamic> body) async {

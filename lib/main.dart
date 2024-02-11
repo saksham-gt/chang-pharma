@@ -1,3 +1,4 @@
+import 'package:changpharma/models/default_meal_time.dart';
 import 'package:changpharma/screens/added_medicines.dart';
 import 'package:changpharma/screens/form_for_med.dart';
 import 'package:changpharma/screens/otp_verify_screen.dart';
@@ -19,6 +20,18 @@ import 'screens/signup_info_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupDep();
+    if(sharedPrefs.get("phone")!=null){
+      
+    final res = await apiClient.getUserByNumber(sharedPrefs.get("phone") as String);
+        if(res.statusCode==201){
+          final user = res.data as Map<String, dynamic>; 
+          selfUser.uid = user['userId'] as String;
+          selfUser.mobile = user["mobileNumber"] as String;
+          selfUser.defaultMealTime = DefaultMealTime(breakfast: DateTime.fromMillisecondsSinceEpoch(user["defaultTimers"]["breakfastTime"] as int),lunch: DateTime.fromMillisecondsSinceEpoch(user["defaultTimers"]["lunchTime"] as int), dinner: DateTime.fromMillisecondsSinceEpoch(user["defaultTimers"]["dinnerTime"] as int));
+          selfUser.enableReminder = user["enableReminder"] as bool;
+        }
+    }
+    
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -73,7 +86,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        '/': (context) => const LandingScreen(),
+        '/': (context) => sharedPrefs.get("phone")!=null? const HomeScreen(): const LandingScreen(),
         '/login': (context) => PhoneNumberLoginScreen(),
         '/signup': (context) => SignupInfoScreen(),
         '/otp': (context) => OtpVerifyScreen(),

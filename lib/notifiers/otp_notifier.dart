@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:changpharma/models/default_meal_time.dart';
 import 'package:changpharma/notifiers/states/get_otp_states.dart';
 import 'package:changpharma/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,11 +46,11 @@ class LoginNotifier extends Notifier<OtpStates> {
       if (response.statusCode == 200) {
         final res =await  apiClient.createUser(phone);
         if(res.statusCode==201){
-          final user = response.data as Map<String, dynamic>;
-          selfUser.uid = user['userId'];
-          selfUser.mobile = user["mobile"];
-          selfUser.defaultMealTime = user["breakfast"];
-          
+          final user = res.data as Map<String, dynamic>; 
+          selfUser.uid = user['userId'] as String;
+          selfUser.mobile = user["mobileNumber"] as String;
+          selfUser.defaultMealTime = DefaultMealTime(breakfast: DateTime.fromMillisecondsSinceEpoch(user["defaultTimers"]["breakfastTime"] as int),lunch: DateTime.fromMillisecondsSinceEpoch(user["defaultTimers"]["lunchTime"] as int), dinner: DateTime.fromMillisecondsSinceEpoch(user["defaultTimers"]["dinnerTime"] as int));
+          selfUser.enableReminder = user["enableReminder"] as bool;
         }
         state = OtpVerifySuccessState();
       } else {
