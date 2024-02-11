@@ -1,10 +1,50 @@
 import 'package:changpharma/utils/colors.dart';
 import 'package:changpharma/utils/theme.dart';
+import 'package:changpharma/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class HomeScreenBanner extends StatelessWidget {
+import '../../utils/constants.dart';
+
+class HomeScreenBanner extends StatefulWidget {
   const HomeScreenBanner({super.key});
+
+  @override
+  State<HomeScreenBanner> createState() => _HomeScreenBannerState();
+}
+
+class _HomeScreenBannerState extends State<HomeScreenBanner> {
+  late String? status;
+
+  @override
+  void initState() {
+    super.initState();
+    status = sharedPrefs.getString(homePageBannerStatusKey) ?? 'PENDING';
+  }
+
+  String get bannerText {
+    if (status == 'PENDING') {
+      return 'Try our AI prescription scanner to start your setup.';
+    } else if (status == 'IN_PROGRESS') {
+      return 'We have identified your medicines in the provided prescription.';
+    } else if (status == 'DONE') {
+      return 'Setup complete';
+    } else {
+      return 'Try our AI prescription scanner to start your setup.';
+    }
+  }
+
+  String get ctaText {
+    if (status == 'PENDING') {
+      return 'Scan prescription';
+    } else if (status == 'IN_PROGRESS') {
+      return 'Continue Setup';
+    } else if (status == 'DONE') {
+      return 'Setup complete';
+    } else {
+      return 'Try our AI prescription scanner to start your setup.';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +86,9 @@ class HomeScreenBanner extends StatelessWidget {
                 ],
               ),
             ),
-            const Text(
-              'We have identified your medicines in the provided prescription.',
-              style: TextStyle(
+            Text(
+              bannerText,
+              style: const TextStyle(
                 fontFamily: CPFont.fontFamily,
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600,
@@ -60,29 +100,20 @@ class HomeScreenBanner extends StatelessWidget {
                 minimumSize: const Size.fromHeight(44),
                 backgroundColor: Colors.black,
               ),
-              onPressed: () async {
-                final capturedImage = await ImagePicker().pickImage(
-                  source: ImageSource.camera,
-                  imageQuality: 3,
-                );
-                if (capturedImage == null) return;
-                // ignore: use_build_context_synchronously
-                Navigator.pushNamed(context, '/scannedMeds',
-                    arguments: capturedImage);
-              },
-              child: const Row(
+              onPressed: startSetup,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Continue Setup',
-                    style: TextStyle(
+                    ctaText,
+                    style: const TextStyle(
                       color: SystemColors.mintCream,
                       fontFamily: CPFont.fontFamily,
                       fontSize: 18.0,
                     ),
                   ),
-                  SizedBox(width: 8),
-                  Icon(
+                  const SizedBox(width: 8),
+                  const Icon(
                     Icons.arrow_forward_outlined,
                     color: SystemColors.mintCream,
                   ),
@@ -93,5 +124,20 @@ class HomeScreenBanner extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void startSetup() async {
+    if (status == 'PENDING' || status == 'IN_PROGRESS') {
+      final capturedImage = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        imageQuality: 3,
+      );
+      if (capturedImage == null) return;
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamed(context, '/scannedMeds', arguments: capturedImage);
+      sharedPrefs.setString(homePageBannerStatusKey, 'IN_PROGRESS');
+    } else {
+      Navigator.of(context).pushNamed('/addedMeds');
+    }
   }
 }

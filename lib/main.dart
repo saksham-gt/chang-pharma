@@ -16,9 +16,9 @@ import 'screens/home_screen.dart';
 import 'screens/landing_screen.dart';
 import 'screens/signup_info_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupDep();
+  await setupDep();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/': (context) => const LandingScreen(),
         '/login': (context) => PhoneNumberLoginScreen(),
         '/signup': (context) => SignupInfoScreen(),
         '/otp': (context) => OtpVerifyScreen(),

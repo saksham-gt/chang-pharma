@@ -11,9 +11,12 @@ final apiClient = getIt.get<ApiClient>();
 final sharedPrefs = getIt.get<SharedPreferences>();
 User selfUser = getIt.get<User>();
 
-setupDep() {
+setupDep() async {
   getIt.registerLazySingleton(() => Dio());
   getIt.registerLazySingleton(() => ApiClient());
-  getIt.registerSingleton(()=> SharedPreferences.getInstance());
-  getIt.registerSingleton(()=>User(uid: '', mobile: ''));
+  GetIt.instance.registerLazySingletonAsync<SharedPreferences>(
+    () => SharedPreferences.getInstance(),
+  );
+  await GetIt.instance.isReady<SharedPreferences>();
+  getIt.registerSingleton(() => User(uid: '', mobile: ''));
 }

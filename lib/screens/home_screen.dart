@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const SizedBox(height: 40),
-                HomeScreenBanner(),
+                const HomeScreenBanner(),
                 const SizedBox(height: 40),
                 const Text(
                   'Quick Actions',
